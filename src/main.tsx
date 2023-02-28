@@ -4,6 +4,7 @@ import App from './App'
 import './index.css'
 import 'flowbite';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
+// @ts-ignore
 import Header from "../front/components/Header/Header";
 
 const router = createBrowserRouter([
