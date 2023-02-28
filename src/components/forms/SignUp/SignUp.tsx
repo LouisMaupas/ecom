@@ -1,12 +1,11 @@
-import React from "react"
+import React, { useState } from 'react';
 import {Button, Label, TextInput, Modal} from "flowbite-react"
 import Login from "../Login/Login"
 
 function SignUp() {
 
-    const [showModal, setShowModal] = React.useState(false);
-
-
+    const [showModal, setShowModal] = useState(false);
+    
     // @ts-ignore
     return (
         <React.Fragment>
