@@ -5,8 +5,8 @@ import {useContext} from "react";
 import {StoreContext} from "../../utils/Store";
 
 const Header = () => {
-    const {user} = useContext(StoreContext)
-    console.log(user[0])
+    const {userECom} = useContext(StoreContext)
+
     return (
         <header>
             <Navbar
@@ -21,21 +21,19 @@ const Header = () => {
                     >
                         Home
                     </Navbar.Link>
-                    {user[0]?.firstName === "admin" ?
+                    {userECom[0]?.firstName === "admin" ?
                         <Navbar.Link href="/dashboard">
                             Tableau de bord
                         </Navbar.Link>
                         : null}
-                    {user[0] ?
-                        <span>Bonjour {user[0].firstName}</span>
+                    {userECom[0] ?
+                        <span>Bonjour {userECom[0].firstName}</span>
                         :
                         <>
                             <SignUp/>
                             <Login/>
                         </>
                     }
-
-
                     <Navbar.Link href="/cart">
                         Panier
                     </Navbar.Link>
