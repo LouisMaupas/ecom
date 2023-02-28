@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {auth} from '../../../config/firebase'
 import {createUserWithEmailAndPassword} from 'firebase/auth'
 import {Button, Label, TextInput, Modal} from "flowbite-react"
-import Login from "../Login/Login"
 
 function SignUp() {
 
@@ -135,4 +134,4 @@ function SignUp() {
     )
 }
 
-export default SignUp
+export default SignUp;
