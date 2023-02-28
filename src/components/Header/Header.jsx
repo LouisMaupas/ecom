@@ -1,4 +1,6 @@
 import {Navbar, Button} from "flowbite-react";
+import Login from "../forms/Login/Login";
+import SignUp from "../forms/SignUp/SignUp";
 
 const Header = () => {
     return (
@@ -18,15 +20,8 @@ const Header = () => {
                     <Navbar.Link href="/login">
                         Tableau de bord
                     </Navbar.Link>
-                    <div className="flex md:order-2">
-                        <Button>
-                            S'inscrire
-                        </Button>
-                        <Navbar.Toggle />
-                    </div>
-                    <Navbar.Link href="/login">
-                        Se connecter
-                    </Navbar.Link>
+                        <SignUp/>
+                    <Login/>
                     <Navbar.Link href="/cart">
                         Panier
                     </Navbar.Link>

@@ -1,27 +1,23 @@
 import React from "react"
 import {Button, Label, TextInput, Modal} from "flowbite-react"
+import Login from "../Login/Login"
 
 function SignUp() {
 
-    const onClick = () => {
-        console.log("Clicked open")
-    }
+    const [showModal, setShowModal] = React.useState(false);
 
-    const onClose = () => {
-        console.log("Clicked close")
-    }
 
     // @ts-ignore
     return (
         <React.Fragment>
-            <Button onClick={onClick}>
-                Toggle modal
+            <Button onClick={() => setShowModal(true)}>
+                S'inscrire
             </Button>
             <Modal
-                show={false}
+                show={showModal}
                 size="md"
                 popup={true}
-                onClose={onClose}
+                onClose={() => setShowModal(false)}
             >
                 <Modal.Header/>
                 <Modal.Body>

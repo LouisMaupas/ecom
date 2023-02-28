@@ -3,26 +3,22 @@ import {Button, Label, TextInput, Modal} from "flowbite-react"
 
 function Login() {
 
-    const onClick = () => {
-        console.log("Clicked open")
-    }
+    const [showModal, setShowModal] = React.useState(false);
 
-    const onClose = () => {
-        console.log("Clicked close")
-    }
 
+    // @ts-ignore
     return (
         <React.Fragment>
-            <Button onClick={onClick}>
-                Toggle modal
+            <Button onClick={() => setShowModal(true)}>
+                Se connecter
             </Button>
             <Modal
-                show={false}
+                show={showModal}
                 size="md"
                 popup={true}
-                onClose={onClose}
+                onClose={() => setShowModal(false)}
             >
-                <Modal.Header />
+                <Modal.Header/>
                 <Modal.Body>
                     <div className="space-y-6 px-6 pb-4 sm:pb-6 lg:px-8 xl:pb-8">
                         <h3 className="text-xl font-medium text-gray-900 dark:text-white">
