@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import {auth} from '../../../config/firebase'
-import {createUserWithEmailAndPassword} from 'firebase/auth'
+import {auth, db} from '../../../config/firebase'
+import {Auth, createUserWithEmailAndPassword} from 'firebase/auth'
 import {Button, Label, TextInput, Modal} from "flowbite-react"
+import { addDoc, collection } from 'firebase/firestore';
 
 function SignUp() {
 
     const [showModal, setShowModal] = useState(false);
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [address, setAddress] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -18,6 +22,12 @@ function SignUp() {
                 console.log(user);
             })
             .catch((error) => {
+                console.log(error);
+            });
+        addDoc(collection(db, 'user'), {firstName, lastName, address, email})
+            .then(() => {
+                alert('User created successfully');
+            }).catch((error) => {
                 console.log(error);
             });
     }
@@ -40,34 +50,53 @@ function SignUp() {
                         <h3 className="text-xl font-medium text-gray-900 dark:text-white">
                             Créer son Compte
                         </h3>
-                        {/* <div>
-                            <div className="mb-2 block">
-                                <Label
-                                    htmlFor="first-name"
-                                    value="Prénom"
-                                />
-                            </div>
-                            <TextInput
-                                id="first-name"
-                                placeholder="Thierry"
-                                required={true}
-                            />
-                        </div>
-                        <div>
-                            <div className="mb-2 block">
-                                <Label
-                                    htmlFor="last-name"
-                                    value="Nom"
-                                />
-                            </div>
-                            <TextInput
-                                id="last-name"
-                                placeholder="Chevalier"
-                                required={true}
-                            />
-                        </div> */}
                         <form onSubmit={handleSubmit}>
                             <div>
+                                <div className="mb-2 block">
+                                    <Label
+                                        htmlFor="first-name"
+                                        value="Prénom"
+                                    />
+                                </div>
+                                <TextInput
+                                    id="first-name"
+                                    placeholder="Thierry"
+                                    value={firstName}
+                                    onChange={(e) => setFirstName(e.target.value)}
+                                    required={true}
+                                />
+                            </div>
+                            <div className='mt-2'>
+                                <div className="mb-2 block">
+                                    <Label
+                                        htmlFor="last-name"
+                                        value="Nom"
+                                    />
+                                </div>
+                                <TextInput
+                                    id="last-name"
+                                    placeholder="Chevalier"
+                                    value={lastName}
+                                    onChange={(e) => setLastName(e.target.value)}
+                                    required={true}
+                                />
+                            </div>
+                            <div className='mt-2'>
+                                <div className="mb-2 block">
+                                    <Label
+                                        htmlFor="address"
+                                        value="Adresse"
+                                    />
+                                </div>
+                                <TextInput
+                                    id="laddress"
+                                    placeholder="15 Rue Saint Paul"
+                                    value={address}
+                                    onChange={(e) => setAddress(e.target.value)}
+                                    required={true}
+                                />
+                            </div>
+                            <div className='mt-2'>
                                 <div className="mb-2 block">
                                     <Label
                                         htmlFor="email"
@@ -82,7 +111,7 @@ function SignUp() {
                                     required={true}
                                 />
                             </div>
-                            <div>
+                            <div className='mt-2'>
                                 <div className="mb-2 block">
                                     <Label
                                         htmlFor="password"
@@ -98,21 +127,7 @@ function SignUp() {
                                     required={true}
                                 />
                             </div>
-                            <div className="flex justify-between">
-                                <div className="flex items-center gap-2">
-                                    {/*<No Display Name id="remember" />*/}
-                                    <Label htmlFor="remember">
-                                        Remember me
-                                    </Label>
-                                </div>
-                                <a
-                                    href="/modal"
-                                    className="text-sm text-blue-700 hover:underline dark:text-blue-500"
-                                >
-                                    Lost Password?
-                                </a>
-                            </div>
-                            <div className="w-full">
+                            <div className="w-full mt-5">
                                 <Button type='submit'>
                                     Log in to your account
                                 </Button>
@@ -135,3 +150,7 @@ function SignUp() {
 }
 
 export default SignUp;
+
+function createUserDocument(auth: Auth, email: string, password: string) {
+    throw new Error('Function not implemented.');
+}
