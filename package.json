@@ -9,7 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "dotenv": "^16.0.3",
     "firebase": "^9.17.1",
     "flowbite": "^1.6.3",
     "flowbite-react": "^0.3.8",
