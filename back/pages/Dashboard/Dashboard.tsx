@@ -1,11 +1,8 @@
-// Import des 
 import React, { useState, useEffect, useContext } from 'react';
 import { db } from '../../../src/config/firebase';
-import firebase from 'firebase/app';
-import firestore from'firebase/firestore';
-import { StoreContext } from '../../../src/utils/Store';
-import { collection, query, where, getDocs } from "firebase/firestore";
-import {Table, Button} from "flowbite-react";
+import Header from '../../../src/components/Header/Header';
+import { collection, getDocs } from "firebase/firestore";
+import { Table, Button } from "flowbite-react";
 
 interface Order {
     address: String;
@@ -52,6 +49,7 @@ const Dashboard: React.FunctionComponent = () => {
 
     return(
         <div>
+            </Header>
             <h4 className="mt-10 text-left">Historique des Commandes</h4>
             <Table>
                 <Table.Head>
@@ -77,8 +75,8 @@ const Dashboard: React.FunctionComponent = () => {
                 </Table.HeadCell>
                 </Table.Head>
                 <Table.Body className="divide-y">
-                    {orders.map((order) => (
-                        <Table.Row key={order.id.toString()} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                    {orders.map((order, i) => (
+                        <Table.Row key={i} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                                 {order.id}
                             </Table.Cell>
