@@ -3,12 +3,16 @@ import React, {useState, createContext} from "react"
 export const StoreContext = createContext(null)
 
 export default ({children}) => {
-    const [user, setUser] = useState(null),
+    const [userFireStore, setUserFireStore] = useState(null),
+        [userECom, setUserECom] = useState(null),
         [items, setItems] = useState(null),
+        [cart, setCart] = useState([]),
         [orders, setOrders] = useState(null);
 
     const store = {
-        user: [user, setUser],
+        cart: [cart, setCart],
+        userFireStore: [userFireStore, setUserFireStore],
+        userECom: [userECom, setUserECom],
         items: [items, setItems],
         orders: [orders, setOrders],
     }
