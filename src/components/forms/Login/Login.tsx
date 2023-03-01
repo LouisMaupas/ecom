@@ -3,14 +3,13 @@ import {Button, Label, TextInput, Modal} from "flowbite-react"
 import {signInWithEmailAndPassword} from "firebase/auth";
 import {auth} from "../../../config/firebase";
 
-function Login() {
+function Login(): JSX.Element {
 
-    const [showModal, setShowModal] = React.useState(false);
+    const [showModal, setShowModal] = useState(false);
 
-    const [email, setEmail] = useState(null),
-        [password, setPassword] = useState(null),
-        [uid, setUid] = useState("");
-
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [uid, setUid] = useState("");
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -25,7 +24,6 @@ function Login() {
             });
     }
 
-    // @ts-ignore
     return (
         <React.Fragment>
             <Button onClick={() => setShowModal(true)}>
