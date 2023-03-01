@@ -7,7 +7,7 @@ import {Card} from "flowbite-react";
 
 const Home = () => {
     const [isLoading, setIsLoading] = useState(true)
-    const [items, setItems] = useState(true)
+    const [items, setItems] = useState([])
 
     async function getData() {
         const querySnapshot = await getDocs(collection(db, "item"));
@@ -22,7 +22,6 @@ const Home = () => {
         getData().then((res) => {
             setItems(res)
             setIsLoading(false);
-            console.log(res)
         })
     }, [isLoading])
 
