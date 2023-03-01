@@ -24,16 +24,15 @@ const Header = () => {
             >
                 <Navbar.Toggle/>
                 <Navbar.Collapse>
-                    <Navbar.Link
-                        href="/"
-                        active={true}
+                    <Link
+                        to="/"
                     >
                         Home
-                    </Navbar.Link>
+                    </Link>
                     {userECom[0]?.firstName === "admin" ?
-                        <Navbar.Link href="/dashboard">
+                        <Link to="/dashboard">
                             Tableau de bord
-                        </Navbar.Link>
+                        </Link>
                         : null}
                     {userECom[0] ?
                         <span>Bonjour {userECom[0].firstName}</span>
