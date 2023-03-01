@@ -49,7 +49,7 @@ const Dashboard: React.FunctionComponent = () => {
 
     return(
         <div>
-            </Header>
+            <Header/>
             <h4 className="mt-10 text-left">Historique des Commandes</h4>
             <Table>
                 <Table.Head>
