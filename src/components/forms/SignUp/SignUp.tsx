@@ -4,8 +4,9 @@ import {Auth, createUserWithEmailAndPassword} from 'firebase/auth'
 import {Button, Label, TextInput, Modal} from "flowbite-react"
 import { addDoc, collection } from 'firebase/firestore';
 
-function SignUp() {
+function SignUp(): JSX.Element {
 
+        // Utilisation de useState pour gérer les valeurs du formulaire et l'état de la Modal
     const [showModal, setShowModal] = useState(false);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -15,15 +16,18 @@ function SignUp() {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        // Création de l'utilisateur dans l'Authentication Firebase
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                // Signed in
                 const user = userCredential.user;
                 console.log(user);
             })
             .catch((error) => {
                 console.log(error);
             });
+
+        // Ajout de l'utilisateur dans la base de données Firestore
         addDoc(collection(db, 'user'), {firstName, lastName, address, email})
             .then(() => {
                 alert('User created successfully');
@@ -31,8 +35,7 @@ function SignUp() {
                 console.log(error);
             });
     }
-    
-    // @ts-ignore
+
     return (
         <React.Fragment>
             <Button onClick={() => setShowModal(true)}>
@@ -127,19 +130,19 @@ function SignUp() {
                                     required={true}
                                 />
                             </div>
-                            <div className="w-full mt-5">
-                                <Button type='submit'>
-                                    Log in to your account
+                            <div className="w-full mt-5 text-center">
+                                <Button type='submit' className='w-full'>
+                                    Inscription
                                 </Button>
                             </div>
                         </form>
                         <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-                            Not registered?
+                            Voux avez déjà un compte ?
                             <a
                                 href="/modal"
-                                className="text-blue-700 hover:underline dark:text-blue-500"
+                                className="text-blue-700 hover:underline dark:text-blue-500 ml-2"
                             >
-                                Create account
+                                Se Connecter
                             </a>
                         </div>
                     </div>
