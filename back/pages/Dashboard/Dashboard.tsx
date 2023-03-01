@@ -1,26 +1,29 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { db } from '../../../src/config/firebase';
 import Header from '../../../src/components/Header/Header';
-import { collection, getDocs } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, Timestamp, updateDoc } from "firebase/firestore";
 import { Table, Button } from "flowbite-react";
+import {StoreContext} from "../../../src/utils/Store";
+import moment from "moment";
+
 
 interface Order {
-    address: String;
-    date: Date;
-    email: String;
-    isValidated: Boolean;
-    item: String;
-    price: Number;
-    user: String;
-    id: String;
+    address: string;
+    date: Timestamp;
+    email: string;
+    isValidated: boolean;
+    item: string;
+    price: number;
+    user: string;
+    id: string;
 }
 
 const Dashboard: React.FunctionComponent = () => {
 
+    const store = useContext(StoreContext);
     const [orders, setOrders] = useState<Order[]>([]);
 
     const fetchOrders = async (): Promise<Order[]> => {
-        const docRef = collection(db, "order");
         const querySnapshot = await getDocs(collection(db, "order"));
         const OrderAPI: Order[] = [];
         querySnapshot.forEach((doc) => {
@@ -39,6 +42,30 @@ const Dashboard: React.FunctionComponent = () => {
         return OrderAPI;
     }
 
+    // Function to validate the order
+    const validateOrder = async (orderId: string) => {
+        const orderRef = doc(db, "order", orderId.toString());
+        await updateDoc(orderRef, {
+          isValidated: true,
+        });
+        const updatedOrders = orders.map((order) =>
+          order.id === orderId ? { ...order, isValidated: true } : order
+        );
+        setOrders(updatedOrders);
+    };
+
+    // Function to delete an order
+    const deleteOrder = async (orderId: string) => {
+        try {
+            await deleteDoc(doc(db, "order", orderId));
+
+            // Update Orders List
+            setOrders(orders.filter(order => order.id !== orderId));
+        } catch (error) {
+            console.error("Erreur lors de la suppression de la commande : ", error);
+        }
+    }
+
     useEffect(() => {
         fetchOrders().then((res: Order[]) => {
             setOrders(res);
@@ -55,6 +82,9 @@ const Dashboard: React.FunctionComponent = () => {
                 <Table.Head>
                 <Table.HeadCell>
                     Id Commande
+                </Table.HeadCell>
+                <Table.HeadCell>
+                    Date
                 </Table.HeadCell>
                 <Table.HeadCell>
                     Nom Complet
@@ -80,6 +110,9 @@ const Dashboard: React.FunctionComponent = () => {
                             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                                 {order.id}
                             </Table.Cell>
+                                <Table.Cell>
+                                    {moment(order.date.toDate()).format("DD/MM/YYYY")}
+                                </Table.Cell>
                             <Table.Cell>
                                 John Doe
                             </Table.Cell>
@@ -89,13 +122,15 @@ const Dashboard: React.FunctionComponent = () => {
                             <Table.Cell>
                                 {order.price.toString()}€
                             </Table.Cell>
-                            <Table.Cell>
-                                <Button>
+                            <Table.Cell >
+                                {order.isValidated ? 
+                                <p className='text-green-500'><b>Commande Validé</b></p> : 
+                                <Button onClick={() => validateOrder(order.id)}>
                                     Valider
-                                </Button>
+                                </Button>}
                             </Table.Cell>
                             <Table.Cell>
-                                <Button>
+                                <Button onClick={() => deleteOrder(order.id)}>
                                     Supprimer
                                 </Button>
                             </Table.Cell>
