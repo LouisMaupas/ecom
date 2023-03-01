@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
+import Dashboard from '../back/pages/Dashboard/Dashboard';
 import './index.css'
 import 'flowbite';
 import StoreProvider from "../src/utils/Store"
@@ -14,10 +15,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <App/>,
     },
-    // {
-    //     path: "/back",
-    //     element: < />,
-    // },
+    {
+        path: "/dashboard",
+        element: <Dashboard/>,
+    },
     // {
     //     path: "/about-us",
     //     element: < />,
