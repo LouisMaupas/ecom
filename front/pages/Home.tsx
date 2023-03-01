@@ -1,40 +1,50 @@
-import {useContext, useEffect, useState} from "react";
+import {MouseEvent, useContext, useEffect, useState} from "react";
 import * as firebase from 'firebase/app';
 import {collection, getDocs} from "firebase/firestore";
 import {db} from "../../src/config/firebase";
 import {Card, Button} from "flowbite-react";
 import {StoreContext} from "../../src/utils/Store";
 
+interface Item {
+    id: string,
+    name: string,
+    description: string,
+    price: number,
+}
 
-const Home = () => {
-    const [isLoading, setIsLoading] = useState(true),
-        [items, setItems] = useState([]),
-        {cart} = useContext(StoreContext),
-        updateCart = cart[1];
+const Home = (): JSX.Element => {
+    const [isLoading, setIsLoading] = useState<boolean>(true),
+        [items, setItems] = useState<Item[]>([]),
+        store = useContext(StoreContext),
+        updateCart = store?.cart[1];
 
 
     // get data from firebase
-    async function getData() {
+    async function getData(): Promise<Item[]> {
         const querySnapshot = await getDocs(collection(db, "item"));
-        const itemsApi = []
+        const itemsApi: Item[] = [];
         querySnapshot.forEach((doc) => {
-            itemsApi.push({...doc.data(), id: doc.id})
+            const itemData = doc.data() as Item; // explicitly define the type of itemData
+            itemsApi.push({...itemData, id: doc.id});
         });
         return itemsApi
     }
 
     // useEffect to get data from firebase
     useEffect(() => {
-        getData().then((res) => {
+        getData().then((res: Item[]) => {
             setItems(res)
             setIsLoading(false);
         })
-    }, [isLoading, cart])
+    }, [isLoading, store])
 
-    const addItemToCart = (ev, item) => {
+    const addItemToCart = (
+        // ev: MouseEvent<HTMLButtonElement, MouseEvent>,
+        ev: any,
+        item: Item
+    ) => {
         ev.preventDefault()
-        const newCarts = [...cart[0], item]
-        updateCart(newCarts)
+        if (store && updateCart) updateCart([...store.cart[0], item])
     }
 
     return (
@@ -56,7 +66,7 @@ const Home = () => {
                                       <span className="text-3xl font-bold text-gray-900 dark:text-white">
                                         {item.price}€
                                       </span>
-                                <Button onClick={(ev) => addItemToCart(ev, {item})}
+                                <Button onClick={(ev) => addItemToCart(ev, item)}
                                         href="#"
                                         className="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                 >
@@ -73,8 +83,8 @@ const Home = () => {
                     </div>
                 </div>
             }
-        </>)
+        </>
+    )
 }
-
 
 export default Home

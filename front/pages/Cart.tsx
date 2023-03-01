@@ -8,7 +8,7 @@ const Cart = () => {
     let totalPrice = 0;
     if (store && store.cart && store.cart[0]) {
         store.cart[0].forEach(item => {
-            totalPrice += item.item.price;
+            totalPrice += item.price;
         });
     }
 
