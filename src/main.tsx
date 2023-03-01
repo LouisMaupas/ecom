@@ -8,11 +8,9 @@ import StoreProvider from "../src/utils/Store"
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import NotFound from "../front/pages/NotFound";
 import Cart from "../front/pages/Cart";
+import dotenv from 'dotenv';
 
-
-// @ts-ignore
-import Header from "./components/Header/Header";
-// @ts-ignore
+dotenv.config();
 
 const router = createBrowserRouter([
     {
