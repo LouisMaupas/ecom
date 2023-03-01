@@ -1,12 +1,14 @@
 import './App.css'
-// @ts-ignore
 import Home from "../front/pages/Home";
+
+// @ts-ignore
+
 
 function App() {
 
     return (
         <div>
-            <Home />
+            <Home/>
         </div>
     )
 }
