@@ -20,7 +20,6 @@ interface Order {
 
 const Dashboard: React.FunctionComponent = () => {
 
-    const {item} = useContext(StoreContext);
     const [orders, setOrders] = useState<Order[]>([]);
 
     const fetchOrders = async (): Promise<Order[]> => {
