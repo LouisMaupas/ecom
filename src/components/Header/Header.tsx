@@ -5,8 +5,10 @@ import {useContext, useEffect} from "react";
 import {StoreContext} from "../../utils/Store";
 import {Link} from "react-router-dom";
 
-const Header = () => {
-    const {userECom, cart} = useContext(StoreContext)
+const Header: React.FunctionComponent = () => {
+    //const {userECom, cart} = useContext(StoreContext)
+
+    const store = useContext(StoreContext);
 
     return (
         <header>
@@ -21,13 +23,13 @@ const Header = () => {
                     >
                         Home
                     </Link>
-                    {userECom[0]?.firstName === "admin" ?
+                    {store?.userECom[0]?.firstName === "admin" ?
                         <Link to="/dashboard">
                             Tableau de bord
                         </Link>
                         : null}
-                    {userECom[0] ?
-                        <span>Bonjour {userECom[0].firstName}</span>
+                    {store?.userECom[0] ?
+                        <span>Bonjour {store?.userECom[0].firstName}</span>
                         :
                         <>
                             <SignUp/>
@@ -37,7 +39,7 @@ const Header = () => {
                     <Link to="/cart">
                         Panier
                         <Badge color="info">
-                            {cart[0].length}
+                            {store?.cart[0].length}
                         </Badge>
                     </Link>
                 </Navbar.Collapse>
