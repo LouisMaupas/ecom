@@ -1,11 +1,11 @@
-<mxfile host="app.diagrams.net" modified="2023-02-28T15:37:23.026Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="PIowcNGDzVg_HJ0TwHeR" version="20.8.23" type="github">
+<mxfile host="app.diagrams.net" modified="2023-03-01T09:10:01.563Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36" etag="jE7y8lQHYsHlG-rLEHr3" version="20.8.23" type="github">
   <diagram name="Page-1" id="k_21CpQqUFbWn0y7H7Tf">
     <mxGraphModel dx="1434" dy="788" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="QBLjRy648UDzI1SPBeH1-1" value="Item" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="16" y="180" width="140" height="150" as="geometry" />
+          <mxGeometry x="16" y="180" width="140" height="120" as="geometry" />
         </mxCell>
         <mxCell id="QBLjRy648UDzI1SPBeH1-2" value="name: string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="QBLjRy648UDzI1SPBeH1-1" vertex="1">
           <mxGeometry y="30" width="140" height="30" as="geometry" />
@@ -15,9 +15,6 @@
         </mxCell>
         <mxCell id="QBLjRy648UDzI1SPBeH1-10" value="price: integer" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="QBLjRy648UDzI1SPBeH1-1" vertex="1">
           <mxGeometry y="90" width="140" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="fOkmc58W5MT81JoYsjg2-3" value="id: integer" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="QBLjRy648UDzI1SPBeH1-1" vertex="1">
-          <mxGeometry y="120" width="140" height="30" as="geometry" />
         </mxCell>
         <mxCell id="QBLjRy648UDzI1SPBeH1-5" value="User" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="670" y="260" width="140" height="150" as="geometry" />
@@ -49,16 +46,16 @@
         <mxCell id="QBLjRy648UDzI1SPBeH1-15" value="user: foreignKey" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="QBLjRy648UDzI1SPBeH1-11" vertex="1">
           <mxGeometry y="120" width="160" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="QBLjRy648UDzI1SPBeH1-16" value="email : string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="QBLjRy648UDzI1SPBeH1-11" vertex="1">
+        <mxCell id="QBLjRy648UDzI1SPBeH1-4" value="validated: boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="QBLjRy648UDzI1SPBeH1-11" vertex="1">
           <mxGeometry y="150" width="160" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="fOkmc58W5MT81JoYsjg2-2" value="id: integer" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="QBLjRy648UDzI1SPBeH1-11" vertex="1">
+        <mxCell id="QBLjRy648UDzI1SPBeH1-16" value="email : string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="QBLjRy648UDzI1SPBeH1-11" vertex="1">
           <mxGeometry y="180" width="160" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="QBLjRy648UDzI1SPBeH1-4" value="validated: boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="QBLjRy648UDzI1SPBeH1-11" vertex="1">
+        <mxCell id="r0W7Cta7fNucCQjeHUo5-1" value="address: string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="QBLjRy648UDzI1SPBeH1-11">
           <mxGeometry y="210" width="160" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="QBLjRy648UDzI1SPBeH1-17" value="Si la commande est passée par un Utilisateur authentifié alors le champ &quot;mail&quot; est nul.&lt;br&gt;&amp;nbsp;&lt;br&gt;Sinon si la commande est passée par un anonyme alors User est nul mais le mail devrait être renseigné" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" parent="1" vertex="1">
+        <mxCell id="QBLjRy648UDzI1SPBeH1-17" value="Si la commande est passée par un Utilisateur authentifié alors le champ &quot;mail&quot; est nul.&lt;br&gt;&amp;nbsp;&lt;br&gt;Sinon si la commande est passée par un anonyme alors User est nul mais le mail et l&#39;adresse devraient être renseignés" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" parent="1" vertex="1">
           <mxGeometry x="520" y="10" width="170" height="210" as="geometry" />
         </mxCell>
         <mxCell id="QBLjRy648UDzI1SPBeH1-19" value="" style="endArrow=none;html=1;rounded=0;" parent="1" source="QBLjRy648UDzI1SPBeH1-11" target="QBLjRy648UDzI1SPBeH1-17" edge="1">
