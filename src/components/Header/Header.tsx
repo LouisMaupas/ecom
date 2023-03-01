@@ -1,12 +1,13 @@
-import {Navbar, Button} from "flowbite-react";
+import {Navbar, Button, Badge} from "flowbite-react";
 import Login from "../forms/Login/Login";
 import SignUp from "../forms/SignUp/SignUp";
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import {StoreContext} from "../../utils/Store";
+import {Link} from "react-router-dom";
 
 const Header = () => {
-    const {user} = useContext(StoreContext)
-    console.log(user[0])
+    const {userECom, cart} = useContext(StoreContext)
+
     return (
         <header>
             <Navbar
@@ -15,30 +16,30 @@ const Header = () => {
             >
                 <Navbar.Toggle/>
                 <Navbar.Collapse>
-                    <Navbar.Link
-                        href="/navbars"
-                        active={true}
+                    <Link
+                        to="/"
                     >
                         Home
-                    </Navbar.Link>
-                    {user[0]?.firstName === "admin" ?
-                        <Navbar.Link href="/dashboard">
+                    </Link>
+                    {userECom[0]?.firstName === "admin" ?
+                        <Link to="/dashboard">
                             Tableau de bord
-                        </Navbar.Link>
+                        </Link>
                         : null}
-                    {user[0] ?
-                        <span>Bonjour {user[0].firstName}</span>
+                    {userECom[0] ?
+                        <span>Bonjour {userECom[0].firstName}</span>
                         :
                         <>
                             <SignUp/>
                             <Login/>
                         </>
                     }
-
-
-                    <Navbar.Link href="/cart">
+                    <Link to="/cart">
                         Panier
-                    </Navbar.Link>
+                        <Badge color="info">
+                            {cart[0].length}
+                        </Badge>
+                    </Link>
                 </Navbar.Collapse>
             </Navbar>
         </header>

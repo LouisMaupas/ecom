@@ -1,12 +1,18 @@
 import './App.css'
-// @ts-ignore
 import Home from "../front/pages/Home";
+import Header from "./components/Header/Header";
+import React from "react";
+
+// @ts-ignore
+
 
 function App() {
 
     return (
         <div>
-            <Home />
+            <Header/>
+
+            <Home/>
         </div>
     )
 }
