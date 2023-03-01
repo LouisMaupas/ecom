@@ -7,14 +7,6 @@ import {Link} from "react-router-dom";
 
 const Header = () => {
     const {userECom, cart} = useContext(StoreContext)
-    // async function getData() {
-    //     const querySnapshot = await getDocs(collection(db, "item"));
-    //     const itemsApi = []
-    //     querySnapshot.forEach((doc) => {
-    //         itemsApi.push({...doc.data(), id: doc.id})
-    //     });
-    //     return itemsApi
-    // }
 
     return (
         <header>
