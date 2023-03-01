@@ -3,9 +3,7 @@ import Login from "../forms/Login/Login";
 import SignUp from "../forms/SignUp/SignUp";
 import {useContext, useEffect} from "react";
 import {StoreContext} from "../../utils/Store";
-import {collection, getDocs} from "firebase/firestore";
-import {db} from "../../config/firebase";
-import {useQuery} from "react-query";
+import {Link} from "react-router-dom";
 
 const Header = () => {
     const {userECom, cart} = useContext(StoreContext)
@@ -45,12 +43,12 @@ const Header = () => {
                             <Login/>
                         </>
                     }
-                    <Navbar to="/cart">
+                    <Link to="/cart">
                         Panier
                         <Badge color="info">
                             {cart[0].length}
                         </Badge>
-                    </Navbar>
+                    </Link>
                 </Navbar.Collapse>
             </Navbar>
         </header>

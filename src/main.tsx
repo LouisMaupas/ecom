@@ -38,7 +38,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <StoreProvider>
-        <Header/>
         <RouterProvider router={router}/>
     </ StoreProvider>
 )
