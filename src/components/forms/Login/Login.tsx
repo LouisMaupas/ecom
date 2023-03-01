@@ -7,8 +7,8 @@ function Login() {
 
     const [showModal, setShowModal] = React.useState(false);
 
-    const [email, setEmail] = useState(null),
-        [password, setPassword] = useState(null),
+    const [email, setEmail] = useState(""),
+        [password, setPassword] = useState(""),
         [uid, setUid] = useState("");
 
 
