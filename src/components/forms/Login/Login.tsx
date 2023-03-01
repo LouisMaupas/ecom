@@ -16,7 +16,7 @@ function Login(): JSX.Element {
             .then((userCredential) => {
                 const user = userCredential.user;
                 setUid(user.uid)
-                console.log(user);
+                setShowModal(false)
             })
             .catch((error) => {
                 console.log(error);

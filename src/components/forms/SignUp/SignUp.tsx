@@ -21,7 +21,6 @@ function SignUp(): JSX.Element {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                console.log(user);
             })
             .catch((error) => {
                 console.log(error);
@@ -30,7 +29,7 @@ function SignUp(): JSX.Element {
         // Ajout de l'utilisateur dans la base de données Firestore
         addDoc(collection(db, 'user'), {firstName, lastName, address, email})
             .then(() => {
-                alert('User created successfully');
+                setShowModal(false)
             }).catch((error) => {
                 console.log(error);
             });
