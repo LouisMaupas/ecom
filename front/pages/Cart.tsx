@@ -14,6 +14,33 @@ interface IceCream {
 const Cart = () => {
     const store = useContext(StoreContext);
 
+    const orderCart = () => {
+        const user = store?.userFireStore[0]
+        let adress, email = null
+        if (user === null) {
+            alert("Authentifiez vous ou donnez votre [adress + mail]")
+            // afficher modal
+            // recup mail + adress
+        }
+        const item = store?.cart[0].map((item) => item.id); // arrayOfIceCreamsIds
+        const date = Date.now();
+        const validated = false
+
+        console.log(totalPrice);
+        // user ? user : null;
+        // email ? email : null;
+        // address ? address : null;
+
+
+        // envoie au serveur un nouveau commande
+        // si success -> on supprime store.cart[0]
+        //      -> on affiche un message d'erreur
+        //      -> msg de success
+        //      -> rafraichit la page pour retirer les commandes
+        // si erreur -> on affiche un message d'erreur
+
+    }
+
     // total price
     let totalPrice = 0;
     if (store && store.cart && store.cart[0]) {
@@ -39,14 +66,14 @@ const Cart = () => {
                 }
                 acc[item.id].quantity += 1; // if ice-cream with this id already exist in acc, increase quantity by 1
                 return acc;
-            }, {}));
+            }, {})
+        );
     }
 
     return (
         <>
             <Header/>
             <div className="container mx-auto px-4">
-
                 <div>
                     <div>
                         {store && store.cart && store.cart[0] && store.cart[0][0] ?
@@ -55,13 +82,13 @@ const Cart = () => {
                     </div>
                     <div>
                         Passer la commande : {' '}
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <button
+                            onClick={orderCart}
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             Commander
                         </button>
                     </div>
                 </div>
-
-
                 {iceCreamsGroupedById.map((item, i) =>
                     <div key={`${item.id}-${i}`} className={`max-w-sm ${item.quantity < 1 ? 'hidden' : ''}`}>
                         <Card
@@ -99,12 +126,10 @@ const Cart = () => {
                                         ➖
                                     </Button>
                                 </div>
-
                             </div>
                         </Card>
                     </div>
-                )
-                }
+                )}
             </div>
         </>)
 }
