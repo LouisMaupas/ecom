@@ -1,5 +1,5 @@
 
 
-export const createEComUser = (fireBaseUser) => {
+export const createEComUser = (fireBaseUser :any) => {
     //
 }
