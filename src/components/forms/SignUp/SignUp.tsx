@@ -1,40 +1,34 @@
-import React, {useState} from 'react';
-import {auth, db} from '../../../config/firebase'
-import {Auth, createUserWithEmailAndPassword} from 'firebase/auth'
+import React, {useContext, useState} from 'react';
+import {auth} from '../../../config/firebase'
+import {createUserWithEmailAndPassword} from 'firebase/auth'
 import {Button, Label, TextInput, Modal} from "flowbite-react"
-import {addDoc, collection} from 'firebase/firestore';
+import {createEComUser} from "./utils";
+import {StoreContext} from "../../../utils/Store";
 
 function SignUp(): JSX.Element {
 
-    // Utilisation de useState pour gérer les valeurs du formulaire et l'état de la Modal
-    const [showModal, setShowModal] = useState(false);
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [address, setAddress] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const isAdmin = false;
+    const store = useContext(StoreContext),
+        userFirebaseSetter = store?.userFireStore[1],
+        userEComSetter = store?.userECom[1],
+        [showModal, setShowModal] = useState(false),
+        [first_name, setFirstName] = useState(''),
+        [last_name, setLastName] = useState(''),
+        [address, setAddress] = useState(''),
+        [email, setEmail] = useState(''),
+        [password, setPassword] = useState('');
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // Création de l'utilisateur dans l'Authentication Firebase
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                const user = userCredential.user;
-                // TODO créer un utilisateur Ecom à partir de l'id retourné
-            })
-            .catch((error) => {
-                console.log(error);
+                const fireBaseUser = userCredential.user;
+                if (userFirebaseSetter) userFirebaseSetter(fireBaseUser)
+                createEComUser(fireBaseUser.uid, first_name, last_name, address);
+                if (userEComSetter) userEComSetter({first_name: first_name, last_name: last_name, address: address});
+                setShowModal(false);
+                // TODO popup de confirmation
             });
-
-        // Ajout de l'utilisateur dans la base de données Firestore
-        addDoc(collection(db, 'user'), {firstName, lastName, address, email, isAdmin})
-            .then(() => {
-                setShowModal(false)
-            }).catch((error) => {
-            console.log(error);
-        });
     }
 
     return (
@@ -65,7 +59,7 @@ function SignUp(): JSX.Element {
                                 <TextInput
                                     id="first-name"
                                     placeholder="Thierry"
-                                    value={firstName}
+                                    value={first_name}
                                     onChange={(e) => setFirstName(e.target.value)}
                                     required={true}
                                 />
@@ -80,7 +74,7 @@ function SignUp(): JSX.Element {
                                 <TextInput
                                     id="last-name"
                                     placeholder="Chevalier"
-                                    value={lastName}
+                                    value={last_name}
                                     onChange={(e) => setLastName(e.target.value)}
                                     required={true}
                                 />
@@ -154,7 +148,3 @@ function SignUp(): JSX.Element {
 }
 
 export default SignUp;
-
-function createUserDocument(auth: Auth, email: string, password: string) {
-    throw new Error('Function not implemented.');
-}

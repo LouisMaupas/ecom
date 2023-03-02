@@ -1,9 +1,8 @@
 import React, {useContext, useState} from "react"
 import {Button, Label, TextInput, Modal} from "flowbite-react"
 import {signInWithEmailAndPassword} from "firebase/auth";
-import {auth, db} from "../../../config/firebase";
+import {auth} from "../../../config/firebase";
 import {StoreContext} from "../../../utils/Store";
-import {collection, getDocs} from "firebase/firestore";
 import {getEComUserFromFireBaseUser} from "./utils";
 
 function Login(): JSX.Element {
