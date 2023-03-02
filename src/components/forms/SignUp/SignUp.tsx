@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {auth, db} from '../../../config/firebase'
 import {Auth, createUserWithEmailAndPassword} from 'firebase/auth'
 import {Button, Label, TextInput, Modal} from "flowbite-react"
-import { addDoc, collection } from 'firebase/firestore';
+import {addDoc, collection} from 'firebase/firestore';
 
 function SignUp(): JSX.Element {
 
-        // Utilisation de useState pour gérer les valeurs du formulaire et l'état de la Modal
+    // Utilisation de useState pour gérer les valeurs du formulaire et l'état de la Modal
     const [showModal, setShowModal] = useState(false);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -21,6 +21,7 @@ function SignUp(): JSX.Element {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
+                // TODO créer un utilisateur Ecom à partir de l'id retourné
             })
             .catch((error) => {
                 console.log(error);
@@ -31,8 +32,8 @@ function SignUp(): JSX.Element {
             .then(() => {
                 setShowModal(false)
             }).catch((error) => {
-                console.log(error);
-            });
+            console.log(error);
+        });
     }
 
     return (
