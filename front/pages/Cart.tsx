@@ -5,6 +5,7 @@ import {Alert, Button, Card} from "flowbite-react";
 import {addDoc, collection} from "firebase/firestore";
 import {db} from "../../src/config/firebase";
 import moment from "moment/moment";
+import firebase from "firebase/compat";
 
 interface IceCream {
     id: string;
@@ -32,7 +33,7 @@ const Cart = () => {
         }
         const order = {
             item: `item/${store?.cart[0].map((item) => item.id)}`, // arrayOfIceCreamsIds
-            date: `${Date.parse(today)}`,
+            date: `${firebase.firestore.Timestamp.fromDate(date)}`,
             validated: false,
             price: totalPrice,
             user: user ? user.uid : null,
