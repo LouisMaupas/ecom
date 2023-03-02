@@ -13,7 +13,6 @@ interface IceCream {
 
 const Cart = () => {
     const store = useContext(StoreContext);
-    console.log('d')
     // total price
     let totalPrice = 0;
     if (store && store.cart && store.cart[0]) {
