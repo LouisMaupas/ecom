@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {auth} from '../../../config/firebase'
+import {auth, db} from '../../../config/firebase'
 import {createUserWithEmailAndPassword} from 'firebase/auth'
 import {Button, Label, TextInput, Modal} from "flowbite-react"
 import {createEComUser} from "./utils";
@@ -24,7 +24,17 @@ function SignUp(): JSX.Element {
             .then((userCredential) => {
                 const fireBaseUser = userCredential.user;
                 if (userFirebaseSetter) userFirebaseSetter(fireBaseUser)
+
+                // TODO
+                // db.collection("user")
+                //     .doc(credential.user.uid)
+                //     .set({
+                //         email: email,
+                //         password: password
+                //     });
                 createEComUser(fireBaseUser.uid, first_name, last_name, address);
+
+
                 if (userEComSetter) userEComSetter({first_name: first_name, last_name: last_name, address: address});
                 setShowModal(false);
                 // TODO popup de confirmation
