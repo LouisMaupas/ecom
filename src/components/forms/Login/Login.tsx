@@ -1,27 +1,30 @@
 import React, {useContext, useState} from "react"
 import {Button, Label, TextInput, Modal} from "flowbite-react"
 import {signInWithEmailAndPassword} from "firebase/auth";
-import {auth} from "../../../config/firebase";
+import {auth, db} from "../../../config/firebase";
 import {StoreContext} from "../../../utils/Store";
+import {collection, getDocs} from "firebase/firestore";
+import {getEComUserFromFireBaseUser} from "./utils";
 
 function Login(): JSX.Element {
 
     const store = useContext(StoreContext),
-        userFirebaseSetter = store?.userFireStore[1];
-
-
-    const [showModal, setShowModal] = React.useState(false),
+        userFirebaseSetter = store?.userFireStore[1],
+        userEComSetter = store?.userECom[1],
+        [showModal, setShowModal] = React.useState(false),
         [email, setEmail] = useState(""),
-        [password, setPassword] = useState(""),
-        [uid, setUid] = useState("");
+        [password, setPassword] = useState("");
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                const user = userCredential.user;
-                setUid(user.uid)
-                if (userFirebaseSetter) userFirebaseSetter(user)
+                const fireBaseUser = userCredential.user;
+                if (userFirebaseSetter) userFirebaseSetter(fireBaseUser)
+                getEComUserFromFireBaseUser(fireBaseUser.uid)
+                    .then((user) => {
+                        if (userEComSetter) userEComSetter(user)
+                    })
                 setShowModal(false)
             })
             .catch((error) => {
