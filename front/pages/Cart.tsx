@@ -13,6 +13,7 @@ interface IceCream {
 
 const Cart = () => {
     const store = useContext(StoreContext);
+
     // total price
     let totalPrice = 0;
     if (store && store.cart && store.cart[0]) {
@@ -22,7 +23,7 @@ const Cart = () => {
     }
 
     // group ice-creams by id
-    let iceCreamsGroupedById :IceCream[] = [];
+    let iceCreamsGroupedById: IceCream[] = [];
     if (store && store?.cart[0]?.length > 0) {
         iceCreamsGroupedById = Object.values( // so we get an array of objects
             store.cart[0].reduce((acc, item) => { // we reduce the array of objects
