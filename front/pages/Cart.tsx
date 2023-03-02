@@ -32,7 +32,7 @@ const Cart = () => {
         }
         const order = {
             item: `item/${store?.cart[0].map((item) => item.id)}`, // arrayOfIceCreamsIds
-            date: `${today}`,
+            date: `${Date.parse(today)}`,
             validated: false,
             price: totalPrice,
             user: user ? user.uid : null,

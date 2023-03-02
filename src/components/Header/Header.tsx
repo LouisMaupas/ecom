@@ -21,7 +21,7 @@ const Header: React.FunctionComponent = () => {
                     >
                         Home
                     </Link>
-                    {store?.userECom[0]?.email === "admin@admin.com" ?
+                    {store?.userFireStore[0]?.email === "admin@admin.com" ?
                         <Link to="/dashboard">
                             Tableau de bord
                         </Link>
