@@ -3,6 +3,13 @@ import {StoreContext} from "../../src/utils/Store";
 import Header from "../../src/components/Header/Header";
 import {Button, Card} from "flowbite-react";
 
+interface IceCream {
+    id: string;
+    name: string;
+    description: string;
+    price: number;
+    quantity: number;
+}
 
 const Cart = () => {
     const store = useContext(StoreContext);
@@ -16,7 +23,7 @@ const Cart = () => {
     }
 
     // group ice-creams by id
-    let iceCreamsGroupedById = [];
+    let iceCreamsGroupedById :IceCream[] = [];
     if (store && store?.cart[0]?.length > 0) {
         iceCreamsGroupedById = Object.values( // so we get an array of objects
             store.cart[0].reduce((acc, item) => { // we reduce the array of objects
