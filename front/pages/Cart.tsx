@@ -81,7 +81,7 @@ const Cart = () => {
                     <span className="font-medium">
                       PROMO !
                     </span>
-                      {' '}Profitez de 10% de réduction 💰 !!! (ça mérite bien quelques points en plus sur la note 😌)
+                      {/*{' '}Profitez de 10% de réduction 💰 !!! (ça mérite bien quelques points en plus sur la note 😌)*/}
                   </span>
                 </Alert>
                 <div>
