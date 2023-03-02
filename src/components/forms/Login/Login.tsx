@@ -1,9 +1,14 @@
-import React, {useState} from "react"
+import React, {useContext, useState} from "react"
 import {Button, Label, TextInput, Modal} from "flowbite-react"
 import {signInWithEmailAndPassword} from "firebase/auth";
 import {auth} from "../../../config/firebase";
+import {StoreContext} from "../../../utils/Store";
 
 function Login(): JSX.Element {
+
+    const store = useContext(StoreContext),
+        userFirebaseSetter = store?.userFireStore[1];
+
 
     const [showModal, setShowModal] = React.useState(false),
         [email, setEmail] = useState(""),
@@ -16,6 +21,7 @@ function Login(): JSX.Element {
             .then((userCredential) => {
                 const user = userCredential.user;
                 setUid(user.uid)
+                if (userFirebaseSetter) userFirebaseSetter(user)
                 setShowModal(false)
             })
             .catch((error) => {

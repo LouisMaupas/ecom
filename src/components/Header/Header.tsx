@@ -6,10 +6,8 @@ import {StoreContext} from "../../utils/Store";
 import {Link} from "react-router-dom";
 
 const Header: React.FunctionComponent = () => {
-    //const {userECom, cart} = useContext(StoreContext)
-
     const store = useContext(StoreContext);
-
+    console.log(store)
     return (
         <header>
             <Navbar
@@ -28,8 +26,9 @@ const Header: React.FunctionComponent = () => {
                             Tableau de bord
                         </Link>
                         : null}
-                    {store?.userECom[0] ?
-                        <span>Bonjour {store?.userECom[0].firstName}</span>
+                    {store?.userFireStore[0] ?
+                        <span>Bonjour {" "} {store?.userFireStore[0].email}
+                        </span>
                         :
                         <>
                             <SignUp/>
