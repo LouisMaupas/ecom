@@ -4,8 +4,8 @@ import Header from "../../src/components/Header/Header";
 import {Alert, Button, Card} from "flowbite-react";
 import {addDoc, collection} from "firebase/firestore";
 import {db} from "../../src/config/firebase";
-import moment from "moment/moment";
-import firebase from "firebase/compat";
+import 'firebase/firestore';
+import moment from "moment";
 
 interface IceCream {
     id: string;
@@ -17,11 +17,11 @@ interface IceCream {
 
 const Cart = () => {
     const store = useContext(StoreContext),
-        date = new Date(),
-        day = date.getDate().toString().padStart(2, '0'),
-        month = (date.getMonth() + 1).toString().padStart(2, '0'),
-        year = date.getFullYear().toString(),
-        today = `${day}-${month}-${year}`;
+        // date = new Date(),
+        // day = date.getDate().toString().padStart(2, '0'),
+        // month = (date.getMonth() + 1).toString().padStart(2, '0'),
+        // year = date.getFullYear().toString();
+        date = moment().format();
 
     const orderCart = async () => {
         const user = store?.userFireStore[0]
@@ -33,7 +33,7 @@ const Cart = () => {
         }
         const order = {
             item: `item/${store?.cart[0].map((item) => item.id)}`, // arrayOfIceCreamsIds
-            date: `${firebase.firestore.Timestamp.fromDate(date)}`,
+            date: date,
             validated: false,
             price: totalPrice,
             user: user ? user.uid : null,
