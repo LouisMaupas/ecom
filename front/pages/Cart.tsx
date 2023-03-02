@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import {StoreContext} from "../../src/utils/Store";
 import Header from "../../src/components/Header/Header";
-import {Button, Card} from "flowbite-react";
+import {Alert, Button, Card} from "flowbite-react";
 
 interface IceCream {
     id: string;
@@ -42,11 +42,13 @@ const Cart = () => {
     }
 
     // total price
-    let totalPrice = 0;
+    let totalPrice = 0, oldPrice = 0;
     if (store && store.cart && store.cart[0]) {
         store.cart[0].forEach(item => {
             totalPrice += item.price;
         });
+        oldPrice = totalPrice;
+        totalPrice = totalPrice - totalPrice / 10
     }
 
     // group ice-creams by id
@@ -74,19 +76,30 @@ const Cart = () => {
         <>
             <Header/>
             <div className="container mx-auto px-4">
+                <Alert color="info">
+                  <span>
+                    <span className="font-medium">
+                      PROMO !
+                    </span>
+                      {' '}Profitez de 10% de réduction 💰 !!! (ça mérite bien quelques points en plus sur la note 😌)
+                  </span>
+                </Alert>
                 <div>
                     <div>
                         {store && store.cart && store.cart[0] && store.cart[0][0] ?
-                            ` Le prix total de votre panier est de ${totalPrice}€:`
-                            : "Le panier est vide."}
-                    </div>
-                    <div>
-                        Passer la commande : {' '}
-                        <button
-                            onClick={orderCart}
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            Commander
-                        </button>
+                            <>
+                                <div>Le prix total de votre panier est de ${totalPrice}€ au lieu de ${oldPrice} !</div>
+                                <div> Passer la commande : {' '}
+                                    <button
+                                        onClick={orderCart}
+                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                        Commander
+                                    </button>
+                                </div>
+
+                            </>
+                            : "Le panier est vide."
+                        }
                     </div>
                 </div>
                 {iceCreamsGroupedById.map((item, i) =>
