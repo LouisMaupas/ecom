@@ -21,13 +21,13 @@ const Header: React.FunctionComponent = () => {
                     >
                         Home
                     </Link>
-                    {store?.userECom[0]?.firstName === "admin" ?
+                    {store?.userECom[0]?.email === "admin@admin.com" ?
                         <Link to="/dashboard">
                             Tableau de bord
                         </Link>
                         : null}
                     {store?.userFireStore[0] ?
-                        <span>Bonjour {" "} {store?.userFireStore[0].email}
+                        <span>Bonjour {" "} {store?.userECom[0].first_name}
                         </span>
                         :
                         <>
