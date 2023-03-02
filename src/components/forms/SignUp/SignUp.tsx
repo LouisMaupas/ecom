@@ -13,6 +13,7 @@ function SignUp(): JSX.Element {
     const [address, setAddress] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const isAdmin = false;
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -27,7 +28,7 @@ function SignUp(): JSX.Element {
             });
 
         // Ajout de l'utilisateur dans la base de données Firestore
-        addDoc(collection(db, 'user'), {firstName, lastName, address, email})
+        addDoc(collection(db, 'user'), {firstName, lastName, address, email, isAdmin})
             .then(() => {
                 setShowModal(false)
             }).catch((error) => {
@@ -101,12 +102,12 @@ function SignUp(): JSX.Element {
                             <div className='mt-2'>
                                 <div className="mb-2 block">
                                     <Label
-                                        htmlFor="email"
+                                        htmlFor="sign-email"
                                         value="Adresse Mail"
                                     />
                                 </div>
                                 <TextInput
-                                    id="email"
+                                    id="sign-email"
                                     placeholder="name@company.com"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
@@ -116,12 +117,12 @@ function SignUp(): JSX.Element {
                             <div className='mt-2'>
                                 <div className="mb-2 block">
                                     <Label
-                                        htmlFor="password"
+                                        htmlFor="sign-password"
                                         value="Mot de Passe"
                                     />
                                 </div>
                                 <TextInput
-                                    id="password"
+                                    id="sign-password"
                                     type="password"
                                     placeholder="••••••••"
                                     value={password}
