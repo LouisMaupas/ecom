@@ -26,7 +26,7 @@ const Header: React.FunctionComponent = () => {
                             Tableau de bord
                         </Link>
                         : null}
-                    {store?.userFireStore[0] ?
+                    {store?.userECom[0] ?
                         <span>Bonjour {" "} {store?.userECom[0].first_name}
                         </span>
                         :
