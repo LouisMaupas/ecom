@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 
 const Header: React.FunctionComponent = () => {
     const store = useContext(StoreContext);
-    console.log(store)
+
     return (
         <header>
             <Navbar
