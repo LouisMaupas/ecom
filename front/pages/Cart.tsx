@@ -2,10 +2,6 @@ import React, {useContext} from "react";
 import {StoreContext} from "../../src/utils/Store";
 import Header from "../../src/components/Header/Header";
 import {Alert, Button, Card} from "flowbite-react";
-import {addDoc, collection} from "firebase/firestore";
-import {db} from "../../src/config/firebase";
-import moment from "moment/moment";
-import firebase from "firebase/compat";
 
 interface IceCream {
     id: string;
@@ -16,33 +12,25 @@ interface IceCream {
 }
 
 const Cart = () => {
-    const store = useContext(StoreContext),
-        date = new Date(),
-        day = date.getDate().toString().padStart(2, '0'),
-        month = (date.getMonth() + 1).toString().padStart(2, '0'),
-        year = date.getFullYear().toString(),
-        today = `${day}-${month}-${year}`;
+    const store = useContext(StoreContext);
 
-    const orderCart = async () => {
+    const orderCart = () => {
         const user = store?.userFireStore[0]
-        let address, email = null
+        let adress, email = null
         if (user === null) {
             alert("Authentifiez vous ou donnez votre [adress + mail]")
             // afficher modal
             // recup mail + adress
         }
-        const order = {
-            item: `item/${store?.cart[0].map((item) => item.id)}`, // arrayOfIceCreamsIds
-            date: `${firebase.firestore.Timestamp.fromDate(date)}`,
-            validated: false,
-            price: totalPrice,
-            user: user ? user.uid : null,
-            email: user ? null : email,
-            address: user ? null : address
-        }
+        const item = store?.cart[0].map((item) => item.id); // arrayOfIceCreamsIds
+        const date = Date.now();
+        const validated = false
 
-        const docRef = await addDoc(collection(db, "order"), order);
-        console.log(docRef)
+        console.log(totalPrice);
+        // user ? user : null;
+        // email ? email : null;
+        // address ? address : null;
+
 
         // envoie au serveur un nouveau commande
         // si success -> on supprime store.cart[0]
@@ -114,47 +102,49 @@ const Cart = () => {
                         }
                     </div>
                 </div>
-                {iceCreamsGroupedById.map((item, i) =>
-                    <div key={`${item.id}-${i}`} className={`max-w-sm ${item.quantity < 1 ? 'hidden' : ''}`}>
-                        <Card
-                            imgAlt="Meaningful alt text for an image that is not purely decorative"
-                            imgSrc="https://flowbite.com/docs/images/blog/image-1.jpg"
-                        >
-                            <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                                {item.name}
-                            </h5>
-                            <p className="font-normal text-gray-700 dark:text-gray-400">
-                                {item.description}
-                            </p>
-                            <div className="flex items-center justify-between">
-                                      <span className="text-3xl font-bold text-gray-900 dark:text-white">
-                                        {item.price}€
-                                      </span>
-                                <span>
-                                    Quantité : {item.quantity}
-                                </span>
-                                <div>
+                <div className="flex flex-wrap">
+                    {iceCreamsGroupedById.map((item, i) =>
+                        <div key={`${item.id}-${i}`} className={`max-w-sm ${item.quantity < 1 ? 'hidden' : ''} max-w-sm w-1/3 p-4`}>
+                            <Card
+                                imgAlt="Meaningful alt text for an image that is not purely decorative"
+                                imgSrc={`../../image/${item.name}.jpg`}
+                            >
+                                <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                    {item.name}
+                                </h5>
+                                <p className="font-normal text-gray-700 dark:text-gray-400">
+                                    {item.description}
+                                </p>
+                                <div className="flex items-center justify-between">
+                                        <span className="text-3xl font-bold text-gray-900 dark:text-white">
+                                            {item.price}€
+                                        </span>
+                                    <span>
+                                        Quantité : {item.quantity}
+                                    </span>
+                                    <div>
 
-                                    <Button size={"xs"}
-                                            onClick={(ev) => alert("TODO")}
-                                            href="#"
-                                            className="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                    >
-                                        <span className={"text-white"}>➕</span>
+                                        <Button size={"xs"}
+                                                onClick={(ev) => alert("TODO")}
+                                                href="#"
+                                                className="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                        >
+                                            <span className={"text-white"}>➕</span>
 
-                                    </Button>
-                                    <Button size={"xs"}
-                                            onClick={(ev) => alert("TODO")}
-                                            href="#"
-                                            className="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                    >
-                                        ➖
-                                    </Button>
+                                        </Button>
+                                        <Button size={"xs"}
+                                                onClick={(ev) => alert("TODO")}
+                                                href="#"
+                                                className="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                        >
+                                            ➖
+                                        </Button>
+                                    </div>
                                 </div>
-                            </div>
-                        </Card>
-                    </div>
-                )}
+                            </Card>
+                        </div>
+                    )}
+                </div>
             </div>
         </>)
 }
