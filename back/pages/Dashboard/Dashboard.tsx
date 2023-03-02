@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { db } from '../../../src/config/firebase';
+import { auth, db } from '../../../src/config/firebase';
 import Header from '../../../src/components/Header/Header';
 import { collection, deleteDoc, doc, getDocs, Timestamp, updateDoc } from "firebase/firestore";
 import { Table, Button } from "flowbite-react";
@@ -77,9 +77,9 @@ const Dashboard: React.FunctionComponent = () => {
     return(
         <div>
             <Header/>
-            <h4 className="mt-10 text-left">Historique des Commandes</h4>
+            <h4 className="mt-10 mb-5 text-left">Historique des Commandes</h4>
             <Table>
-                <Table.Head>
+                <Table.Head className='text-center'>
                 <Table.HeadCell>
                     Id Commande
                 </Table.HeadCell>
@@ -87,7 +87,7 @@ const Dashboard: React.FunctionComponent = () => {
                     Date
                 </Table.HeadCell>
                 <Table.HeadCell>
-                    Nom Complet
+                    Adresse Mail
                 </Table.HeadCell>
                 <Table.HeadCell>
                     Adresse
@@ -102,6 +102,7 @@ const Dashboard: React.FunctionComponent = () => {
                     <span className="sr-only">
                     Supprimer
                     </span>
+                    Action
                 </Table.HeadCell>
                 </Table.Head>
                 <Table.Body className="divide-y">
@@ -110,17 +111,17 @@ const Dashboard: React.FunctionComponent = () => {
                             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                                 {order.id}
                             </Table.Cell>
-                                <Table.Cell>
-                                    {moment(order.date.toDate()).format("DD/MM/YYYY")}
-                                </Table.Cell>
                             <Table.Cell>
-                                John Doe
+                                {moment(order.date.toDate()).format("DD/MM/YYYY")}
+                            </Table.Cell>
+                            <Table.Cell>
+                                {order.email}
                             </Table.Cell>
                             <Table.Cell>
                                 {order.address}
                             </Table.Cell>
                             <Table.Cell>
-                                {order.price.toString()}€
+                                {order.price.toString()}.00€
                             </Table.Cell>
                             <Table.Cell >
                                 {order.isValidated ? 
