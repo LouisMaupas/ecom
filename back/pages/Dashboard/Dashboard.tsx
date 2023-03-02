@@ -1,3 +1,5 @@
+// Display the Dashboard Page
+
 import React, { useState, useEffect, useContext } from 'react';
 import { auth, db } from '../../../src/config/firebase';
 import Header from '../../../src/components/Header/Header';
@@ -5,7 +7,6 @@ import { collection, deleteDoc, doc, getDocs, Timestamp, updateDoc } from "fireb
 import { Table, Button } from "flowbite-react";
 import {StoreContext} from "../../../src/utils/Store";
 import moment from "moment";
-
 
 interface Item {
     name: string;
@@ -37,53 +38,60 @@ const Dashboard: React.FunctionComponent = () => {
     const store = useContext(StoreContext);
     const [orders, setOrders] = useState<Order[]>([]);
 
+    // Function that return an array of Order
     const fetchOrders = async (): Promise<Order[]> => {
+
+        // Get the data of all Orders and Users
         const [orderSnapshot, userSnapshot] = await Promise.all([
           getDocs(collection(db, "order")),
           getDocs(collection(db, "user"))
         ]);
       
+        // Create an object that will store users by ID.
         const usersById: Record<string, User> = {};
         userSnapshot.forEach((doc) => {
           const user = doc.data() as User;
           usersById[doc.id] = user;
         });
       
+        // Array to store Order objects.
         const orders: Order[] = [];
         orderSnapshot.forEach((doc) => {
-          const order = doc.data() as Order;
-          const user = order.user ? usersById[order.user.id] : null;
-      
-          orders.push({
-            id: doc.id,
-            address: order.address,
-            date: order.date,
-            email: order.email,
-            validated: order.validated,
-            item: order.item,
-            price: order.price,
-            user: user ? {
-              first_name: user.first_name,
-              last_name: user.last_name,
-              address: user.address,
-              email: user.email,
-              id: user.id,
-              isAdmin: user.isAdmin,
-            } : null,
-          });
+
+            const order = doc.data() as Order; // Get the data of the Order.
+            const user = order.user ? usersById[order.user.id] : null; // Checks if the order has an assigned User and get this User.
+
+            // Add data to the Order array
+            orders.push({
+                id: doc.id,
+                address: order.address,
+                date: order.date,
+                email: order.email,
+                validated: order.validated,
+                item: order.item,
+                price: order.price,
+                user: user ? {
+                    first_name: user.first_name,
+                    last_name: user.last_name,
+                    address: user.address,
+                    email: user.email,
+                    id: user.id,
+                    isAdmin: user.isAdmin,
+                } : null,
+            });
         });
       
         return orders;
       };
 
-    // Function to validate the order
+    // Function to validate an order
     const validateOrder = async (orderId: string) => {
         const orderRef = doc(db, "order", orderId.toString());
         await updateDoc(orderRef, {
-          validated: true,
+            validated: true,
         });
         const updatedOrders = orders.map((order) =>
-          order.id === orderId ? { ...order, validated: true } : order
+            order.id === orderId ? { ...order, validated: true } : order
         );
         setOrders(updatedOrders);
     };
@@ -106,6 +114,8 @@ const Dashboard: React.FunctionComponent = () => {
         });
     }, []);
 
+
+    // If the User is Admin then we display the content
     if (store?.userFireStore[0]?.email === "admin@admin.com") {
         return(
             <div>
@@ -176,6 +186,8 @@ const Dashboard: React.FunctionComponent = () => {
             </div>
      
         )
+
+    // Else we send back an error message
     } else {
         return(
             <div>
