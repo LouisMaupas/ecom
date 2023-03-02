@@ -88,7 +88,7 @@ const Cart = () => {
                     <div>
                         {store && store.cart && store.cart[0] && store.cart[0][0] ?
                             <>
-                                <div>Le prix total de votre panier est de ${totalPrice}€ au lieu de ${oldPrice} !</div>
+                                <div>Le prix total de votre panier est de {totalPrice}€ au lieu de {oldPrice}€ !</div>
                                 <div> Passer la commande : {' '}
                                     <button
                                         onClick={orderCart}
