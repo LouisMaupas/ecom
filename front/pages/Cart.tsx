@@ -1,9 +1,9 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {StoreContext} from "../../src/utils/Store";
 import Header from "../../src/components/Header/Header";
 import {Alert, Button, Card} from "flowbite-react";
 import 'firebase/firestore';
-import moment from "moment";
+import {Toast} from "flowbite-react";
 import {addDoc, collection} from "firebase/firestore";
 import {db} from "../../src/config/firebase";
 
@@ -17,37 +17,33 @@ interface IceCream {
 
 const Cart = () => {
     const store = useContext(StoreContext),
-        date = moment().format();
+        updateStore = store?.cart[1],
+        [display, useDisplay] = useState("hidden")
+
+
+    useEffect((): void => {
+
+    }, [display])
 
     const orderCart = async () => {
         const user = store?.userFireStore[0]
         let address = null, email = null
         if (user === null) {
-            alert("Authentifiez vous ou donnez votre [adress + mail]")
+            alert("Authentifiez vous ou donnez votre [adress + mail]") // TODO
             // afficher modal
             // recup mail + adress
         }
         const order = {
             item: `item/${store?.cart[0].map((item) => item.id)}`, // arrayOfIceCreamsIds
-            date: date,
             validated: false,
             price: totalPrice,
             user: user ? user.uid : null,
             email: user ? null : email,
             address: user ? null : address
         }
-
-        const docRef = await addDoc(collection(db, "order"), order);
-        console.log(docRef)
-
-
-        // envoie au serveur un nouveau commande
-        // si success -> on supprime store.cart[0]
-        //      -> on affiche un message d'erreur
-        //      -> msg de success
-        //      -> rafraichit la page pour retirer les commandes
-        // si erreur -> on affiche un message d'erreur
-
+        // const docRef = await addDoc(collection(db, "order"), order); in case we want to see api response
+        useDisplay("")
+        if (updateStore) updateStore([]) // empty cart
     }
 
     // total price
@@ -90,7 +86,7 @@ const Cart = () => {
                     <span className="font-medium">
                       PROMO !
                     </span>
-                      {/*{' '}Profitez de 10% de réduction 💰 !!! (ça mérite bien quelques points en plus sur la note 😌)*/}
+                      {' '}Profitez en ce moment de 10% de réduction 💰!
                   </span>
                 </Alert>
                 <div>
@@ -156,6 +152,15 @@ const Cart = () => {
                     )}
                 </div>
             </div>
+            <Toast className={display}>
+                <div
+                    className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green-100 text-green-500 dark:bg-green-800 dark:text-green-200">
+                </div>
+                <div className="ml-3 text-sm font-normal">
+                    Commande effectuée !
+                </div>
+                <Toast.Toggle/>
+            </Toast>
         </>)
 }
 
