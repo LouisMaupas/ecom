@@ -48,13 +48,13 @@ const Home = (): JSX.Element => {
     }
 
     return (
-        <>
+        <div className="flex flex-wrap">
             {!isLoading ?
                 items.map(item =>
-                    <div key={item.id} className="max-w-sm">
+                    <div key={item.id} className="max-w-sm w-1/3 p-4">
                         <Card
                             imgAlt="Meaningful alt text for an image that is not purely decorative"
-                            imgSrc="https://flowbite.com/docs/images/blog/image-1.jpg"
+                            imgSrc={`../../image/${item.name}.jpg`}
                         >
                             <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                                 {item.name}
@@ -83,7 +83,7 @@ const Home = (): JSX.Element => {
                     </div>
                 </div>
             }
-        </>
+        </div>
     )
 }
 

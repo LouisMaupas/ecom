@@ -27,7 +27,7 @@ const Header: React.FunctionComponent = () => {
                         </Link>
                         : null}
                     {store?.userECom[0] ?
-                        <span>
+                        <span className="text-blue-500">
                             Bonjour {" "} {store?.userECom[0].first_name}
                         </span>
                         :
