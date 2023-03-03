@@ -155,7 +155,7 @@ const Dashboard: React.FunctionComponent = () => {
                                     {order.id}
                                 </Table.Cell>
                                 <Table.Cell>
-                                    {moment(order.date.toDate()).format("DD/MM/YYYY")}
+                                    {moment(order.date?.toDate()).format("DD/MM/YYYY")}
                                 </Table.Cell>
                                 <Table.Cell className='text-center'>
                                     {order.user ? `${order.user.first_name} ${order.user.last_name}`  : "Anonyme"}
@@ -164,7 +164,7 @@ const Dashboard: React.FunctionComponent = () => {
                                     {order.user ? order.user.address : order.address}
                                 </Table.Cell>
                                 <Table.Cell>
-                                    {order.price.toString()}.00€
+                                    {order.price.toString()}€
                                 </Table.Cell>
                                 <Table.Cell >
                                     {order.validated ? 
