@@ -18,12 +18,13 @@ interface IceCream {
 const Cart = () => {
     const store = useContext(StoreContext),
         updateStore = store?.cart[1],
-        [display, useDisplay] = useState("hidden")
+        [display, useDisplay] = useState("hidden");
+    let iceCreamsGroupedById: IceCream[] = [];
 
 
     useEffect((): void => {
 
-    }, [display])
+    }, [display, iceCreamsGroupedById])
 
     const orderCart = async () => {
         const user = store?.userFireStore[0]
@@ -32,18 +33,19 @@ const Cart = () => {
             alert("Authentifiez vous ou donnez votre [adress + mail]") // TODO
             // afficher modal
             // recup mail + adress
+        } else {
+            const order = {
+                item: `item/${store?.cart[0].map((item) => item.id)}`, // arrayOfIceCreamsIds
+                validated: false,
+                price: totalPrice,
+                user: user ? user.uid : null,
+                email: user ? null : email,
+                address: user ? null : address
+            }
+            const docRef = await addDoc(collection(db, "order"), order); // docRef show api response
+            useDisplay("")
+            if (updateStore) updateStore([]) // empty cart
         }
-        const order = {
-            item: `item/${store?.cart[0].map((item) => item.id)}`, // arrayOfIceCreamsIds
-            validated: false,
-            price: totalPrice,
-            user: user ? user.uid : null,
-            email: user ? null : email,
-            address: user ? null : address
-        }
-        // const docRef = await addDoc(collection(db, "order"), order); in case we want to see api response
-        useDisplay("")
-        if (updateStore) updateStore([]) // empty cart
     }
 
     // total price
@@ -57,7 +59,6 @@ const Cart = () => {
     }
 
     // group ice-creams by id
-    let iceCreamsGroupedById: IceCream[] = [];
     if (store && store?.cart[0]?.length > 0) {
         iceCreamsGroupedById = Object.values( // so we get an array of objects
             store.cart[0].reduce((acc, item) => { // we reduce the array of objects
@@ -75,6 +76,13 @@ const Cart = () => {
                 return acc;
             }, {})
         );
+    }
+
+    const moreQuantity = (itemId: string) => {
+        alert("TODO")
+        // const iceCream = iceCreamsGroupedById.find(iceCream => iceCream.id === itemId)
+        // iceCream.quantity = iceCream.quantity + 1;
+        // iceCreamsGroupedById = iceCreamsGroupedById.map(iceCream => iceCream.id === itemId ? iceCream : iceCream)
     }
 
     return (
@@ -131,7 +139,7 @@ const Cart = () => {
                                     <div>
 
                                         <Button size={"xs"}
-                                                onClick={(ev) => alert("TODO")}
+                                                onClick={(ev) => moreQuantity(item.id)}
                                                 href="#"
                                                 className="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                         >
